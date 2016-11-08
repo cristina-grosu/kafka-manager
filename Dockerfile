@@ -46,6 +46,6 @@ ADD           ./image-files/start-kafka-manager.sh /usr/bin/
 
 EXPOSE 9000
 
-ENTRYPOINT     ["start-kafka-manager.sh"]
+ENTRYPOINT     ["/ur/bin/start-kafka-manager.sh"]
  
 # vim: set nospell:
