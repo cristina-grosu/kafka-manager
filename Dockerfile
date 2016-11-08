@@ -22,7 +22,7 @@ RUN cd /tmp && \
     unzip kafka-manager*.zip && \
     ln -s $(find kafka-manager* -type d -prune) kafka-manager
     
-    
+RUN rm /opt/kafka-manager*.zip
   #  make dist SHELL=/bin/bash && \
   #  mv /tmp/incubator-toree/dist/toree /opt/toree-kernel && \
   #  chmod +x /opt/toree-kernel && \
