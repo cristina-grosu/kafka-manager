@@ -1,5 +1,7 @@
 #! /usr/bin/env bash
 
+touch hosts 
+
 if [ "$HOSTNAME_ZOOKEEPER" != "" ]; then
 	sleep 5
 	nslookup $HOSTNAME_ZOOKEEPER >> zk.cluster
@@ -28,16 +30,15 @@ if [ "$HOSTNAME_ZOOKEEPER" != "" ]; then
 	done < 'zk.cluster.tmp'
 
 fi
-#if [[ -z "$ZKHOSTS" ]]
-#then
-#	[[ -z "$ZK_PORT_2181_TCP_ADDR" ]] && echo "ZKHOSTS should be defined or container should be linked with zookeeper container as zk" && exit 1#
-#	ZKHOSTS=$ZK_PORT_2181_TCP_ADDR:$ZK_PORT_2181_TCP_PORT
-#fi
+
 sed -i 's/^ *//' hosts 
 sed -e 's/\s/,/g' hosts > hosts.txt
 
 content=$(cat hosts.txt)
 ZKHOSTS=$content
+
+rm hosts
+rm hosts.txt
 
 echo $ZKHOSTS
 $KAFKA_MANAGER_HOME/bin/kafka-manager -Dkafka-manager.zkhosts=$ZKHOSTS
